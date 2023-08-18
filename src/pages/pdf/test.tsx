@@ -42,13 +42,15 @@ const Component: React.FC = () => {
                 paperItems: [],
                 key: `${Math.random()}`,
             };
-            console.log("paper", paper);
 
             // 遍历纸张上的元素
             const paperChildren = normalizeList(paper.props.children);
             for (let j = 0; j < paperChildren.length; j++) {
                 const paperItem: React.ReactElement = paperChildren[j];
-                console.log("paperItem", paperItem);
+                puffPaper.paperItems.push({
+                    element: paperItem,
+                    key: `${Math.random()}`,
+                });
             }
 
             setItems((prevState) => {
@@ -60,7 +62,7 @@ const Component: React.FC = () => {
 
     return (
         <div>
-            {items.map((e) => e.paperElement)}
+            {items.map((e) => cloneElement(e.paperElement, { key: e.key }, ...e.paperItems.map((f) => cloneElement(f.element, { key: f.key }))))}
             <button type="button" onClick={handleRender}>handleRender</button>
         </div>
     );
