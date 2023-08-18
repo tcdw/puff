@@ -9,12 +9,16 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
     "umi": "^4.0.76"
   },
   "devDependencies": {
+    "@nexet/eslint-config-nexet": "^1.1.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@types/webpack-env": "^1.18.1",
+    "eslint": "^8.47.0",
+    "sass": "^1.66.0",
     "typescript": "^5.1.6"
   }
 }

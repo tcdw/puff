@@ -1,0 +1,23 @@
+.puff-paper {
+    background: red;
+    width: var(--puff-paper-width);
+    min-height: var(--puff-paper-height);
+    margin: 10px auto;
+    page-break-after: always;
+    position: relative;
+
+    @media print {
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+    &--landscape {
+        width: var(--puff-paper-height);
+        min-height: var(--puff-paper-width);
+        @media print {
+            transform: rotate(270deg) translate(calc(0px - var(--puff-paper-height)), 0);
+            transform-origin: 0 0;
+        }
+    }
+}

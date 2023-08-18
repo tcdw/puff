@@ -1,0 +1,28 @@
+:root {
+    --puff-paper-width: 210mm;
+    --puff-paper-height: 297mm;
+}
+
+* {
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #ff9800;
+    font-family: serif;
+}
+
+p {
+    margin: 0;
+}
+
+@media print {
+    body {
+        margin: 0;
+        background: unset;
+    }
+}
