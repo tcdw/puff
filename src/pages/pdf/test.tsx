@@ -13,22 +13,23 @@ const document: React.ReactNode = (
     <div>
         <Paper>
             <PageBlockB word="第一页第一个元素" />
-            <PageBlockA />
-            <PageBlockA />
-            <PageBlockA />
-            <PageBlockA />
-            <PageBlockA />
-            <PageBlockA />
-            <PageBlockB />
-            <PageBlockB />
-            <PageBlockB />
-            <PageBlockB />
+            <PageBlockA word={1} />
+            <PageBlockA word={2} />
+            <PageBlockA word={3} />
+            <PageBlockA word={4} />
+            <PageBlockA word={5} />
+            {/* <PageBlockB word={5000} /> */}
+            <PageBlockA word={6} />
+            <PageBlockB word={7} />
+            <PageBlockB word={8} />
+            <PageBlockB word={9} />
+            <PageBlockB word={10} />
             <PageBlockB word="第一页最后一个元素" />
         </Paper>
         <Paper>
             <PageBlockB word="第二页第一个元素" />
-            <PageBlockA />
-            <PageBlockA />
+            <PageBlockA word={1} />
+            <PageBlockA word={2} />
             <PageBlockB word="第二页最后一个元素" />
         </Paper>
     </div>
@@ -66,30 +67,7 @@ const Component: React.FC = () => {
                     key: v4(),
                     renderAmount: 1,
                 });
-
-                /* // 确保执行完更新操作以后，DOM 也已经更新完毕，因为我们需要测量 DOM 高度
-                flushSync(() => {
-                    setItems((prevState) => {
-                        prevState[i] = puffPaper;
-                        return prevState.map((e) => e);
-                    });
-                });
-
-                // 纸张是否已经溢出？
-                const paperActualHeight = paperRef.current[i].getBoundingClientRect().height;
-                const paperHeight = measureSize(paper.props.landscape ? "var(--puff-paper-width)" : "var(--puff-paper-height)");
-                if (paperActualHeight > paperHeight) {
-                    // 纸张溢出了！
-                    console.log("纸张溢出了！", paperActualHeight, paperHeight);
-                }
-                j++; */
             }
-
-            /* setItems((prevState) => {
-                prevState.push(puffPaper);
-                return prevState.map((e) => e);
-            }); */
-
             rawPuffPapers.push(puffPaper);
         }
 
@@ -97,7 +75,9 @@ const Component: React.FC = () => {
         for (let i = 0; i < rawPuffPapers.length; i++) {
             const e = rawPuffPapers[i];
 
-            for (let j = 0; j < e.paperItems.length; j++) {
+            // 要放置到下一页的 PuffFragment
+            const nextPageFragments: PuffFragment[] = [];
+            for (let j = 0; j < e.paperItems.length;) {
                 const f = e.paperItems[j];
 
                 // 确保执行完更新操作以后，DOM 也已经更新完毕，因为我们需要测量 DOM 高度
@@ -109,9 +89,37 @@ const Component: React.FC = () => {
                 const paperHeight = measureSize(e.paperElement.props.landscape ? "var(--puff-paper-width)" : "var(--puff-paper-height)");
                 if (paperActualHeight > paperHeight) {
                     // 纸张溢出了！
-                    console.log("纸张溢出了！", paperActualHeight, paperHeight);
+                    console.log("纸张溢出了！", {
+                        i, j, paperActualHeight, paperHeight,
+                    });
+
+                    // 将当前 j 指向的 Fragment 挪动到 nextPageFragments 的末尾
+                    // const movedFragment = e.paperItems.splice(j, 1);
+                    // nextPageFragments.push(movedFragment[0]); // 只有一个元素会被删除
+
+                    // 将当前 j 及之后指向的 Fragment 挪动到 nextPageFragments 的末尾
+                    const movedFragment = e.paperItems.slice(j);
+                    nextPageFragments.push(...movedFragment);
+
+                    // 被渲染的页面数量 -1
+                    e.renderAmount--;
+
+                    break;
+                } else {
+                    // 被渲染的页面数量 +1
+                    e.renderAmount++;
+                    // 增加当前循环位置
+                    j++;
                 }
-                e.renderAmount++;
+            }
+            // 如果 nextPageFragments 有东西，插入到 rawPuffPapers
+            if (nextPageFragments.length > 0) {
+                rawPuffPapers.splice(i + 1, 0, {
+                    paperElement: cloneElement(e.paperElement),
+                    key: v4(),
+                    paperItems: nextPageFragments,
+                    renderAmount: 1,
+                });
             }
         }
     };

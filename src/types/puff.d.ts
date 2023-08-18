@@ -27,3 +27,9 @@ export interface PuffPaper {
     renderAmount: number
     key: string
 }
+
+export interface PuffFragmentProps {
+    hideBefore?: boolean
+    hideAfter?: boolean
+    handleChildren?: boolean
+}
