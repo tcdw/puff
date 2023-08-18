@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "author": "tcdw <tcdw2011@gmail.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "umi": "^4.0.76"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@types/webpack-env": "^1.18.1",
+    "typescript": "^5.1.6"
+  }
+}
