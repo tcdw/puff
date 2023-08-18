@@ -62,7 +62,10 @@ const Component: React.FC = () => {
 
     return (
         <div>
-            {items.map((e) => cloneElement(e.paperElement, { key: e.key }, ...e.paperItems.map((f) => cloneElement(f.element, { key: f.key }))))}
+            {items.map((e) => {
+                const childList = e.paperItems.map((f) => cloneElement(f.element, { key: f.key }));
+                return cloneElement(e.paperElement, { key: e.key }, ...childList);
+            })}
             <button type="button" onClick={handleRender}>handleRender</button>
         </div>
     );
