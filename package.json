@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
-    "umi": "^4.0.76"
+    "umi": "^4.0.76",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@nexet/eslint-config-nexet": "^1.1.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@types/uuid": "^9.0.2",
     "@types/webpack-env": "^1.18.1",
     "eslint": "^8.47.0",
     "sass": "^1.66.0",
