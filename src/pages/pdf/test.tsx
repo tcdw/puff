@@ -6,26 +6,36 @@ import { flushSync } from "react-dom";
 const Component: React.FC = () => {
     const [items, setItems] = useState([
         {
-            component: PageBlockA,
-            props: {}
+            element: <PageBlockA />,
+            key: "1",
         },
         {
-            component: PageBlockB,
-            props: {}
+            element: <PageBlockB />,
+            key: "2",
         },
         {
-            component: PageBlockB,
-            props: { word: "test" }
+            element: <PageBlockB word="test" />,
+            key: "3",
         }
     ])
 
-    const handleClick = () => {
+    const handleAdd = () => {
         flushSync(() => {
             setItems((prevState) => {
                 prevState.push({
-                    component: PageBlockB,
-                    props: { word: "test" + new Date().getTime() }
+                    element: <PageBlockB word={"test" + new Date().getTime()} />,
+                    key: "__" + Math.random()
                 })
+                return prevState.map((e) => e);
+            })
+        })
+    }
+
+    const handleReplaceLast = () => {
+        flushSync(() => {
+            setItems((prevState) => {
+                const last = prevState[prevState.length - 1];
+                last.element = React.cloneElement(last.element, { word: "replaced " + new Date().getTime() })
                 return prevState.map((e) => e);
             })
         })
@@ -33,11 +43,11 @@ const Component: React.FC = () => {
 
     return (
         <div>
-            {items.map((e, i) => {
-                const DynamicComponent = e.component;
-                return <DynamicComponent key={i} {...e.props} />
+            {items.map(( {element, key }) => {
+                return React.cloneElement(element, { key })
             })}
-            <button onClick={handleClick}>Add</button>
+            <button onClick={handleAdd}>Add</button>
+            <button onClick={handleReplaceLast}>ReplaceLast</button>
         </div>
     )
 }
