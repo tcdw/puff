@@ -8,6 +8,9 @@ dependencies:
   '@emotion/react':
     specifier: ^11.11.1
     version: registry.npmjs.org/@emotion/react@11.11.1(@types/react@18.2.20)(react@18.2.0)
+  sleep-promise:
+    specifier: ^9.1.0
+    version: registry.npmjs.org/sleep-promise@9.1.0
   umi:
     specifier: ^4.0.76
     version: registry.npmjs.org/umi@4.0.76(@babel/core@7.22.10)(@types/react@18.2.20)(eslint@8.47.0)(postcss@8.4.28)(prettier@3.0.2)(react-dom@18.2.0)(react@18.2.0)(sass@1.66.0)(styled-components@6.0.7)(stylelint@14.16.1)(typescript@5.1.6)(webpack@5.88.2)
@@ -10198,6 +10201,12 @@ packages:
     name: slash
     version: 4.0.0
     engines: {node: '>=12'}
+    dev: false
+
+  registry.npmjs.org/sleep-promise@9.1.0:
+    resolution: {integrity: sha512-UHYzVpz9Xn8b+jikYSD6bqvf754xL2uBUzDFwiU6NcdZeifPr6UfgU43xpkPu67VMS88+TI2PSI7Eohgqf2fKA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/sleep-promise/-/sleep-promise-9.1.0.tgz}
+    name: sleep-promise
+    version: 9.1.0
     dev: false
 
   registry.npmjs.org/slice-ansi@4.0.0:
