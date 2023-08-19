@@ -9,7 +9,7 @@ const PageBlockArticle: React.FC<PuffFragmentProps & PageBlockArticleProps> = ({
     <div
         style={{
             background: "white",
-            fontSize: "1.5rem",
+            fontSize: "1.4rem",
         }}
     >
         <div
@@ -17,7 +17,7 @@ const PageBlockArticle: React.FC<PuffFragmentProps & PageBlockArticleProps> = ({
                 background: "green",
                 color: "white",
                 padding: "1rem",
-                display: hideBefore ? "hidden" : undefined,
+                display: hideBefore ? "none" : undefined,
             }}
         >
             我是头部
@@ -30,7 +30,7 @@ const PageBlockArticle: React.FC<PuffFragmentProps & PageBlockArticleProps> = ({
                 background: "yellow",
                 color: "black",
                 padding: "1rem",
-                display: hideAfter ? "hidden" : undefined,
+                display: hideAfter ? "none" : undefined,
             }}
         >
             我是尾部

@@ -13,7 +13,7 @@ import type { PuffPaper, PuffFragment } from "@/types/puff";
 
 const document: React.ReactNode = (
     <div>
-        <Paper>
+        {/* <Paper>
             <PageBlockB word="第零页第一个元素" />
             <PageBlockA word={1} />
             <PageBlockA word={2} />
@@ -21,7 +21,7 @@ const document: React.ReactNode = (
             <PageBlockA word={4} />
             <PageBlockA word={5} />
             <PageBlockArticle>{new Array(500).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
-        </Paper>
+        </Paper> */}
         <Paper landscape>
             <PageBlockB word="第一页第一个元素" />
             <PageBlockA word={1} />
@@ -132,6 +132,10 @@ const Component: React.FC = () => {
                     // 如果是有元素的 Fragment
                     // console.log(f.element.props.children);
                     if (f.element.props.children) {
+                        // 隐藏尾部
+                        f.element = cloneElement(f.element, { hideAfter: true });
+
+                        // 获取 elements 数量
                         let elements: React.ReactNode[] = normalizeList(f.element.props.children);
                         if (typeof f.element.props.children === "string") {
                             elements = f.element.props.children.split("");
@@ -172,6 +176,7 @@ const Component: React.FC = () => {
                             const movedFragment = e.paperItems.splice(j, 1);
                             nextPageFragments.push({
                                 ...movedFragment[0],
+                                element: cloneElement(movedFragment[0].element, { hideBefore: false, hideAfter: false }),
                                 renderAmount: 0,
                             });
                             // 被渲染的页面数量 -1
@@ -179,6 +184,7 @@ const Component: React.FC = () => {
                             break;
                         }
 
+                        let notOverflowHandledFlag = false;
                         do {
                             if (options.slow) {
                                 await sleep(100);
@@ -192,7 +198,23 @@ const Component: React.FC = () => {
 
                             // 更新完毕后测量高度
                             measureHeight();
+
+                            // 兜底措施：去除尾部以后页面反而不会溢出
+                            if (f.renderAmount > elements.length) {
+                                // 将元素放到下一页
+                                const movedFragment: PuffFragment = {
+                                    element: cloneElement(f.element, { hideBefore: true, hideAfter: false }, []),
+                                    key: v4(),
+                                    renderAmount: 0,
+                                };
+                                nextPageFragments.push(movedFragment);
+                                notOverflowHandledFlag = true;
+                                break;
+                            }
                         } while (paperActualHeight <= paperHeight);
+                        if (notOverflowHandledFlag) {
+                            break;
+                        }
 
                         do {
                             if (options.slow) {
@@ -214,7 +236,7 @@ const Component: React.FC = () => {
 
                         // 将剩下的元素放到下一页
                         const movedFragment: PuffFragment = {
-                            element: cloneElement(f.element, {}, f.element.props.children.slice(f.renderAmount)),
+                            element: cloneElement(f.element, { hideBefore: true, hideAfter: false }, f.element.props.children.slice(f.renderAmount)),
                             key: v4(),
                             renderAmount: 0,
                         };
@@ -274,7 +296,7 @@ const Component: React.FC = () => {
             })}
             <button
                 type="button"
-                onClick={() => handleRender({ slow: false })}
+                onClick={() => handleRender({ slow: true })}
                 // style={{
                 //     appearance: "none",
                 //     padding: "40px",
