@@ -13,7 +13,7 @@ import type { PuffPaper, PuffFragment } from "@/types/puff";
 
 const document: React.ReactNode = (
     <div>
-        {/* <Paper>
+        <Paper>
             <PageBlockB word="第零页第一个元素" />
             <PageBlockA word={1} />
             <PageBlockA word={2} />
@@ -21,7 +21,7 @@ const document: React.ReactNode = (
             <PageBlockA word={4} />
             <PageBlockA word={5} />
             <PageBlockArticle>{new Array(500).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
-        </Paper> */}
+        </Paper>
         <Paper landscape>
             <PageBlockB word="第一页第一个元素" />
             <PageBlockA word={1} />
@@ -296,12 +296,12 @@ const Component: React.FC = () => {
             })}
             <button
                 type="button"
-                onClick={() => handleRender({ slow: true })}
-                // style={{
-                //     appearance: "none",
-                //     padding: "40px",
-                //     fontSize: "40px",
-                // }}
+                onClick={() => handleRender({ slow: false })}
+                style={{
+                    appearance: "none",
+                    padding: "40px",
+                    fontSize: "40px",
+                }}
             >
                 handleRender
             </button>
