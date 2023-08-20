@@ -2,14 +2,16 @@
     background: red;
     width: var(--puff-paper-width);
     min-height: var(--puff-paper-height);
-    margin: 10px auto;
+    margin: 16px auto;
     page-break-after: always;
     position: relative;
+    box-shadow: 0 0 0 1px #000, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
     @media print {
         margin: 0;
         padding: 0;
         border: none;
+        box-shadow: unset;
     }
 
     &--landscape {

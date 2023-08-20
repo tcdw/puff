@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  normalize.css:
+    specifier: ^8.0.1
+    version: registry.npmjs.org/normalize.css@8.0.1
   sleep-promise:
     specifier: ^9.1.0
     version: registry.npmjs.org/sleep-promise@9.1.0
@@ -8638,6 +8641,12 @@ packages:
     name: normalize-range
     version: 0.1.2
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  registry.npmjs.org/normalize.css@8.0.1:
+    resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/normalize.css/-/normalize.css-8.0.1.tgz}
+    name: normalize.css
+    version: 8.0.1
     dev: false
 
   registry.npmjs.org/npm-run-path@4.0.1:
