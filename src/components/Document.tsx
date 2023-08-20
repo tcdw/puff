@@ -27,6 +27,7 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
 
     const render = async (options: RenderOptions = {}) => {
         console.time("渲染性能");
+        let renderCount = 0;
 
         const rawPuffPapers: PuffPaper[] = [];
 
@@ -63,6 +64,7 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
             flushSync(() => {
                 setItems(rawPuffPapers.map((g) => g));
             });
+            renderCount++;
         };
 
         // 开始进行渲染操作
@@ -167,7 +169,7 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
                             }
 
                             // 逐步添加文字
-                            f.renderAmount += 5;
+                            f.renderAmount += 25;
 
                             // 执行更新
                             update();
@@ -194,7 +196,7 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
 
                         do {
                             if (options.slow) {
-                                await sleep(500);
+                                await sleep(100);
                             }
 
                             // 逐步减少文字
@@ -255,6 +257,7 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
         }
 
         console.timeEnd("渲染性能");
+        console.log(`渲染次数: ${renderCount}`);
     };
 
     useImperativeHandle(ref, () => ({

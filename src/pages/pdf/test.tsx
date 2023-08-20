@@ -10,7 +10,7 @@ const Component: React.FC = () => {
     const documentRef = useRef<DocumentRef>(null);
 
     const handleRender = () => {
-        documentRef.current?.render();
+        documentRef.current?.render({ slow: false });
     };
 
     return (
