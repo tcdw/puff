@@ -14,7 +14,7 @@ const PageBlockArticle: React.FC<PuffFragmentProps & PageBlockArticleProps> = ({
         >
             我是头部
         </div>
-        <div className={styles.common}>
+        <div className={styles.content}>
             {children}
         </div>
         <div

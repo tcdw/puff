@@ -6,6 +6,7 @@ import Document, { DocumentRef } from "@/components/Document";
 import PageBlockA from "./components/PageBlockA";
 import PageBlockB from "./components/PageBlockB";
 import styles from "./test.module.css";
+import text from "./test.txt";
 
 const CustomChildrenWrapper: React.FC<PaperChildrenWrapperProps> = ({ children }) => (
     <>
@@ -19,13 +20,13 @@ const Component: React.FC = () => {
     const documentRef = useRef<DocumentRef>(null);
 
     const handleRender = () => {
-        documentRef.current?.render({ slow: false });
+        documentRef.current?.render({ slow: true });
     };
 
     return (
         <div>
             <Document ref={documentRef}>
-                <Paper>
+                <Paper landscape>
                     <PageBlockB word="第零页第一个元素" />
                     <PageBlockA word={1} />
                     <PageBlockA word={2} />
@@ -34,12 +35,12 @@ const Component: React.FC = () => {
                     <PageBlockA word={5} />
                     <PageBlockArticle>{new Array(500).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
                 </Paper>
-                <Paper landscape className={styles.testChildrenWrapper} childrenWrapper={CustomChildrenWrapper}>
+                <Paper className={styles.testChildrenWrapper} childrenWrapper={CustomChildrenWrapper}>
                     <PageBlockB word="第一页第一个元素" />
                     <PageBlockA word={1} />
                     <PageBlockA word={2} />
                     <PageBlockB word={3} />
-                    <PageBlockArticle>{new Array(500).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
+                    <PageBlockArticle>{text}</PageBlockArticle>
                     <PageBlockA word={4} />
                     <PageBlockA word={5} />
                     <PageBlockA word={6} />

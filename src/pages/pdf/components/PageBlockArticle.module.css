@@ -13,6 +13,11 @@
     color: white;
 }
 
+.content {
+    composes: common;
+    white-space: pre-wrap;
+}
+
 .footer {
     composes: common;
     background: yellow;

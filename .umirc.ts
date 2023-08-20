@@ -7,6 +7,9 @@ export default defineConfig({
         config.module.rule("mjscfg")
             .test(/\.m?js/)
             .resolve.set("fullySpecified", false)
+        config.module.rule("compile")
+            .test(/\.txt/)
+            .type("asset/source")
     },
     jsMinifier: 'swc'
 });
