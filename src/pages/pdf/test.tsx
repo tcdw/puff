@@ -117,8 +117,9 @@ const Component: React.FC = () => {
                 let paperHeight = 0;
 
                 const measureHeight = () => {
-                    paperActualHeight = paperRef.current[i].getBoundingClientRect().height;
-                    paperHeight = measureSize(e.paperElement.props.landscape ? "var(--puff-paper-width)" : "var(--puff-paper-height)");
+                    // 由于 Firefox 和 Chrome 浏览器的测量结果存在极小的差异，导致页面渲染工作不可靠，这里统一换算成整数
+                    paperActualHeight = Math.floor(paperRef.current[i].getBoundingClientRect().height);
+                    paperHeight = Math.floor(measureSize(e.paperElement.props.landscape ? "var(--puff-paper-width)" : "var(--puff-paper-height)"));
                 };
                 measureHeight();
 
@@ -297,11 +298,11 @@ const Component: React.FC = () => {
             <button
                 type="button"
                 onClick={() => handleRender({ slow: false })}
-                style={{
+                /* css={{
                     appearance: "none",
                     padding: "40px",
                     fontSize: "40px",
-                }}
+                }} */
             >
                 handleRender
             </button>
