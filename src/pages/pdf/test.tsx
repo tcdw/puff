@@ -21,8 +21,9 @@ const Component: React.FC = () => {
 
     const [testSwitch, setTestSwitch] = useState(true);
 
-    const handleRender = () => {
-        documentRef.current?.render({ slow: false });
+    const handleRender = async () => {
+        const result = await documentRef.current?.render({ slow: false });
+        console.log("渲染完毕！要旋转的页面页码:", result?.rotatePages);
     };
 
     const handleClear = () => {
@@ -56,11 +57,16 @@ const Component: React.FC = () => {
                 </button>
             </div>
             <Document ref={documentRef} key={`${testSwitch}`}>
+                {testSwitch ? null : (
+                    <Paper>
+                        <PageBlockB word="第三页第一个元素。本页面在 testSwitch 为 false 时会显示" />
+                    </Paper>
+                )}
                 <Paper landscape>
                     <PageBlockB word="第零页第一个元素" />
                     {/* eslint-disable-next-line react/no-array-index-key */}
                     {new Array(5).fill("a").map((e, i) => <PageBlockB word={`循环列表 ${i}`} key={`循环列表${e}${i}`} />)}
-                    <PageBlockArticle>{new Array(100).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
+                    <PageBlockArticle>{new Array(500).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
                 </Paper>
                 {testSwitch ? (
                     <Paper className={styles.testChildrenWrapper} childrenWrapper={CustomChildrenWrapper}>
@@ -81,11 +87,6 @@ const Component: React.FC = () => {
                     {testSwitch ? <PageBlockA word={`${3}（在 testSwitch 为 true 时会显示）`} /> : undefined}
                     <PageBlockB word="第二页最后一个元素" />
                 </Paper>
-                {testSwitch ? null : (
-                    <Paper>
-                        <PageBlockB word="第三页第一个元素。本页面在 testSwitch 为 false 时会显示" />
-                    </Paper>
-                )}
             </Document>
         </div>
     );

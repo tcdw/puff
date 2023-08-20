@@ -14,6 +14,10 @@ export interface RenderOptions {
     slow?: boolean
 }
 
+export interface RenderReturns {
+    rotatePages: number[]
+}
+
 export type DocumentChildren = React.ReactElement | null | undefined;
 
 export interface DocumentProps {
@@ -21,7 +25,7 @@ export interface DocumentProps {
 }
 
 export interface DocumentRef {
-    render: (options?: RenderOptions) => Promise<void>
+    render: (options?: RenderOptions) => Promise<RenderReturns>
     clear: () => void
 }
 
@@ -263,6 +267,13 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
 
         console.timeEnd("渲染性能");
         console.log(`渲染次数: ${renderCount}`);
+
+        const rotatePages = rawPuffPapers
+            .map((e, i) => ({ e, i }))
+            .filter(({ e }) => e.paperElement.props.landscape)
+            .map(({ i }) => i + 1);
+
+        return { rotatePages };
     };
 
     const clear = () => {
