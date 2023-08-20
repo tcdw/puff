@@ -1,10 +1,19 @@
 import React, { useRef } from "react";
 
-import Paper from "@/components/Paper";
+import Paper, { PaperChildrenWrapperProps } from "@/components/Paper";
 import PageBlockArticle from "@/pages/pdf/components/PageBlockArticle";
 import Document, { DocumentRef } from "@/components/Document";
 import PageBlockA from "./components/PageBlockA";
 import PageBlockB from "./components/PageBlockB";
+import styles from "./test.module.css";
+
+const CustomChildrenWrapper: React.FC<PaperChildrenWrapperProps> = ({ children }) => (
+    <>
+        <div style={{ padding: "0.5rem", textAlign: "center" }}>我是页眉</div>
+        {children}
+        <div style={{ padding: "0.5rem", textAlign: "center", marginTop: "auto" }}>我是页脚</div>
+    </>
+);
 
 const Component: React.FC = () => {
     const documentRef = useRef<DocumentRef>(null);
@@ -25,7 +34,7 @@ const Component: React.FC = () => {
                     <PageBlockA word={5} />
                     <PageBlockArticle>{new Array(500).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
                 </Paper>
-                <Paper landscape>
+                <Paper landscape className={styles.testChildrenWrapper} childrenWrapper={CustomChildrenWrapper}>
                     <PageBlockB word="第一页第一个元素" />
                     <PageBlockA word={1} />
                     <PageBlockA word={2} />
