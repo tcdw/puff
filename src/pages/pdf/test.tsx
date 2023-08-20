@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import Paper, { PaperChildrenWrapperProps } from "@/components/Paper";
 import PageBlockArticle from "@/pages/pdf/components/PageBlockArticle";
@@ -19,8 +19,18 @@ const CustomChildrenWrapper: React.FC<PaperChildrenWrapperProps> = ({ children }
 const Component: React.FC = () => {
     const documentRef = useRef<DocumentRef>(null);
 
+    const [testSwitch, setTestSwitch] = useState(true);
+
     const handleRender = () => {
         documentRef.current?.render({ slow: false });
+    };
+
+    const handleClear = () => {
+        documentRef.current?.clear();
+    };
+
+    const handleToggleTestSwitch = () => {
+        setTestSwitch((prevState) => !prevState);
     };
 
     return (
@@ -32,31 +42,50 @@ const Component: React.FC = () => {
                 >
                     handleRender
                 </button>
+                <button
+                    type="button"
+                    onClick={handleClear}
+                >
+                    handleClear
+                </button>
+                <button
+                    type="button"
+                    onClick={handleToggleTestSwitch}
+                >
+                    {`handleToggleTestSwitch (Current: ${testSwitch})`}
+                </button>
             </div>
-            <Document ref={documentRef}>
+            <Document ref={documentRef} key={`${testSwitch}`}>
                 <Paper landscape>
                     <PageBlockB word="第零页第一个元素" />
                     {/* eslint-disable-next-line react/no-array-index-key */}
-                    {new Array(15).fill("a").map((e, i) => <PageBlockB word={i} key={e + i} />)}
-                    <PageBlockArticle>{new Array(500).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
+                    {new Array(5).fill("a").map((e, i) => <PageBlockB word={`循环列表 ${i}`} key={`循环列表${e}${i}`} />)}
+                    <PageBlockArticle>{new Array(100).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
                 </Paper>
-                <Paper className={styles.testChildrenWrapper} childrenWrapper={CustomChildrenWrapper}>
-                    <PageBlockB word="第一页第一个元素" />
-                    <PageBlockA word={1} />
-                    <PageBlockA word={2} />
-                    <PageBlockB word={3} />
-                    <PageBlockArticle>{text}</PageBlockArticle>
-                    <PageBlockA word={4} />
-                    <PageBlockA word={5} />
-                    <PageBlockA word={6} />
-                    <PageBlockB word="第一页最后一个元素" />
-                </Paper>
+                {testSwitch ? (
+                    <Paper className={styles.testChildrenWrapper} childrenWrapper={CustomChildrenWrapper}>
+                        <PageBlockB word="第一页第一个元素。本页面在 testSwitch 为 true 时会显示" />
+                        <PageBlockA word={1} />
+                        <PageBlockB word={2} />
+                        <PageBlockArticle>{text}</PageBlockArticle>
+                        <PageBlockA word={3} />
+                        <PageBlockA word={4} />
+                        <PageBlockB word="第一页最后一个元素" />
+                    </Paper>
+                ) : null}
                 <Paper>
                     <PageBlockB word="第二页第一个元素" />
                     <PageBlockA word={1} />
                     <PageBlockA word={2} />
+                    {testSwitch ? null : <PageBlockA word={`${3}（在 testSwitch 为 false 时会显示）`} />}
+                    {testSwitch ? <PageBlockA word={`${3}（在 testSwitch 为 true 时会显示）`} /> : undefined}
                     <PageBlockB word="第二页最后一个元素" />
                 </Paper>
+                {testSwitch ? null : (
+                    <Paper>
+                        <PageBlockB word="第三页第一个元素。本页面在 testSwitch 为 false 时会显示" />
+                    </Paper>
+                )}
             </Document>
         </div>
     );

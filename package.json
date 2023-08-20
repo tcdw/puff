@@ -10,6 +10,7 @@
     "preview": "serve -s dist"
   },
   "dependencies": {
+    "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
     "sleep-promise": "^9.1.0",
     "umi": "^4.0.76",
@@ -18,6 +19,7 @@
   "devDependencies": {
     "@nexet/eslint-config-nexet": "^1.1.0",
     "@swc/core": "^1.3.78",
+    "@types/lodash-es": "^4.17.8",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@types/uuid": "^9.0.2",

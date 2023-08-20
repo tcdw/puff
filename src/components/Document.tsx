@@ -7,18 +7,22 @@ import { flushSync } from "react-dom";
 import sleep from "sleep-promise";
 import { normalizeList } from "@/utils/misc";
 import { measureSize } from "@/utils/style";
+import { flattenDeep, isNil } from "lodash-es";
 import type { PuffPaper, PuffFragment } from "@/types/puff";
 
 export interface RenderOptions {
     slow?: boolean
 }
 
+export type DocumentChildren = React.ReactElement | null | undefined;
+
 export interface DocumentProps {
-    children: React.ReactElement | React.ReactElement[]
+    children: DocumentChildren | DocumentChildren[]
 }
 
 export interface DocumentRef {
     render: (options?: RenderOptions) => Promise<void>
+    clear: () => void
 }
 
 const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
@@ -32,11 +36,11 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
         const rawPuffPapers: PuffPaper[] = [];
 
         // 遍历纸张原始 JSX 结构，渲染成 PuffPaper 数据结构
-        const documentChildren = normalizeList(props.children);
+        const documentChildren = flattenDeep(normalizeList(props.children)).filter((e) => !isNil(e));
 
         // i => 纸张 index
         for (let i = 0; i < documentChildren.length; i++) {
-            const paper: React.ReactElement = documentChildren[i];
+            const paper: React.ReactElement = documentChildren[i]!;
             console.log("paper", paper);
             const puffPaper: PuffPaper = {
                 paperElement: cloneElement(paper, {}, undefined),
@@ -46,18 +50,16 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
             };
 
             // 遍历纸张上的元素
-            const paperChildren = normalizeList(paper.props.children);
+            const paperChildren = flattenDeep(normalizeList(paper.props.children)).filter((e) => !isNil(e));
 
             // j => 纸张元素 index
             for (let j = 0; j < paperChildren.length; j++) {
                 // 先尝试增加元素
-                const paperItems: React.ReactElement[] = normalizeList(paperChildren[j]);
-                paperItems.forEach((f) => {
-                    puffPaper.paperItems.push({
-                        element: f,
-                        key: v4(),
-                        renderAmount: 0,
-                    });
+                const paperItem: React.ReactElement = paperChildren[j]!;
+                puffPaper.paperItems.push({
+                    element: paperItem,
+                    key: v4(),
+                    renderAmount: 0,
                 });
             }
             rawPuffPapers.push(puffPaper);
@@ -263,8 +265,13 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
         console.log(`渲染次数: ${renderCount}`);
     };
 
+    const clear = () => {
+        setItems([]);
+    };
+
     useImperativeHandle(ref, () => ({
         render,
+        clear,
     }), []);
 
     return (

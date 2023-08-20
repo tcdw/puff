@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  lodash-es:
+    specifier: ^4.17.21
+    version: registry.npmjs.org/lodash-es@4.17.21
   normalize.css:
     specifier: ^8.0.1
     version: registry.npmjs.org/normalize.css@8.0.1
@@ -25,6 +28,9 @@ devDependencies:
   '@swc/core':
     specifier: ^1.3.78
     version: registry.npmjs.org/@swc/core@1.3.78
+  '@types/lodash-es':
+    specifier: ^4.17.8
+    version: registry.npmjs.org/@types/lodash-es@4.17.8
   '@types/react':
     specifier: ^18.2.20
     version: registry.npmjs.org/@types/react@18.2.20
@@ -3141,6 +3147,20 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz}
     name: '@types/json5'
     version: 0.0.29
+    dev: true
+
+  registry.npmjs.org/@types/lodash-es@4.17.8:
+    resolution: {integrity: sha512-euY3XQcZmIzSy7YH5+Unb3b2X12Wtk54YWINBvvGQ5SmMvwb11JQskGsfkH/5HXK77Kr8GF0wkVDIxzAisWtog==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/lodash-es/-/lodash-es-4.17.8.tgz}
+    name: '@types/lodash-es'
+    version: 4.17.8
+    dependencies:
+      '@types/lodash': registry.npmjs.org/@types/lodash@4.14.197
+    dev: true
+
+  registry.npmjs.org/@types/lodash@4.14.197:
+    resolution: {integrity: sha512-BMVOiWs0uNxHVlHBgzTIqJYmj+PgCo4euloGF+5m4okL3rEYzM2EEv78mw8zWSMM57dM7kVIgJ2QDvwHSoCI5g==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/lodash/-/lodash-4.14.197.tgz}
+    name: '@types/lodash'
+    version: 4.14.197
     dev: true
 
   registry.npmjs.org/@types/minimist@1.2.2:
@@ -8204,6 +8224,12 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       p-locate: registry.npmjs.org/p-locate@5.0.0
+
+  registry.npmjs.org/lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.21.tgz}
+    name: lodash-es
+    version: 4.17.21
+    dev: false
 
   registry.npmjs.org/lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz}
