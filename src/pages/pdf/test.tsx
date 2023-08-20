@@ -5,7 +5,7 @@ import PageBlockArticle from "@/pages/pdf/components/PageBlockArticle";
 import Document, { DocumentRef } from "@/components/Document";
 import PageBlockA from "./components/PageBlockA";
 import PageBlockB from "./components/PageBlockB";
-import styles from "./test.module.css";
+import styles from "./test.module.scss";
 import text from "./test.txt";
 
 const CustomChildrenWrapper: React.FC<PaperChildrenWrapperProps> = ({ children }) => (
@@ -20,11 +20,19 @@ const Component: React.FC = () => {
     const documentRef = useRef<DocumentRef>(null);
 
     const handleRender = () => {
-        documentRef.current?.render({ slow: true });
+        documentRef.current?.render({ slow: false });
     };
 
     return (
         <div>
+            <div className={styles.floatingAction}>
+                <button
+                    type="button"
+                    onClick={handleRender}
+                >
+                    handleRender
+                </button>
+            </div>
             <Document ref={documentRef}>
                 <Paper landscape>
                     <PageBlockB word="第零页第一个元素" />
@@ -53,12 +61,6 @@ const Component: React.FC = () => {
                     <PageBlockB word="第二页最后一个元素" />
                 </Paper>
             </Document>
-            <button
-                type="button"
-                onClick={handleRender}
-            >
-                handleRender
-            </button>
         </div>
     );
 };
