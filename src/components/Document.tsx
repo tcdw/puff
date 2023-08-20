@@ -37,6 +37,7 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
         // i => 纸张 index
         for (let i = 0; i < documentChildren.length; i++) {
             const paper: React.ReactElement = documentChildren[i];
+            console.log("paper", paper);
             const puffPaper: PuffPaper = {
                 paperElement: cloneElement(paper, {}, undefined),
                 paperItems: [],
@@ -50,11 +51,13 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
             // j => 纸张元素 index
             for (let j = 0; j < paperChildren.length; j++) {
                 // 先尝试增加元素
-                const paperItem: React.ReactElement = paperChildren[j];
-                puffPaper.paperItems.push({
-                    element: paperItem,
-                    key: v4(),
-                    renderAmount: 0,
+                const paperItems: React.ReactElement[] = normalizeList(paperChildren[j]);
+                paperItems.forEach((f) => {
+                    puffPaper.paperItems.push({
+                        element: f,
+                        key: v4(),
+                        renderAmount: 0,
+                    });
                 });
             }
             rawPuffPapers.push(puffPaper);

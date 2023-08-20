@@ -36,11 +36,8 @@ const Component: React.FC = () => {
             <Document ref={documentRef}>
                 <Paper landscape>
                     <PageBlockB word="第零页第一个元素" />
-                    <PageBlockA word={1} />
-                    <PageBlockA word={2} />
-                    <PageBlockA word={3} />
-                    <PageBlockA word={4} />
-                    <PageBlockA word={5} />
+                    {/* eslint-disable-next-line react/no-array-index-key */}
+                    {new Array(15).fill("a").map((e, i) => <PageBlockB word={i} key={e + i} />)}
                     <PageBlockArticle>{new Array(500).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
                 </Paper>
                 <Paper className={styles.testChildrenWrapper} childrenWrapper={CustomChildrenWrapper}>
