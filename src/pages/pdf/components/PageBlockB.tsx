@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./PageBlockA.module.css";
+import styles from "./PageBlock.module.css";
 import type { PuffFragmentProps } from "@/types/puff";
 
 const PageBlockB: React.FC<PuffFragmentProps & { word?: React.ReactNode }> = ({ word }) => (

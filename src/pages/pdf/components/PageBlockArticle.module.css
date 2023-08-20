@@ -1,0 +1,20 @@
+.root {
+    background: white;
+    font-size: 1.4rem;
+}
+
+.common {
+    padding: 1rem;
+}
+
+.header {
+    composes: common;
+    background: green;
+    color: white;
+}
+
+.footer {
+    composes: common;
+    background: yellow;
+    color: black;
+}

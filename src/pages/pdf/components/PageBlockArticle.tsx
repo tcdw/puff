@@ -1,37 +1,25 @@
 import React from "react";
 import type { PuffFragmentProps } from "@/types/puff";
+import styles from "./PageBlockArticle.module.css";
 
 export interface PageBlockArticleProps {
     children?: React.ReactNode
 }
 
 const PageBlockArticle: React.FC<PuffFragmentProps & PageBlockArticleProps> = ({ children, hideBefore, hideAfter }) => (
-    <div
-        style={{
-            background: "white",
-            fontSize: "1.4rem",
-        }}
-    >
+    <div className={styles.root}>
         <div
-            style={{
-                background: "green",
-                color: "white",
-                padding: "1rem",
-                display: hideBefore ? "none" : undefined,
-            }}
+            className={styles.header}
+            style={{ display: hideBefore ? "none" : undefined }}
         >
             我是头部
         </div>
-        <div style={{ padding: "1rem" }}>
+        <div className={styles.common}>
             {children}
         </div>
         <div
-            style={{
-                background: "yellow",
-                color: "black",
-                padding: "1rem",
-                display: hideAfter ? "none" : undefined,
-            }}
+            className={styles.footer}
+            style={{ display: hideAfter ? "none" : undefined }}
         >
             我是尾部
         </div>
