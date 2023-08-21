@@ -67,7 +67,7 @@ const Component: React.FC = () => {
                     <PageBlockB word="第零页第一个元素" />
                     {/* eslint-disable-next-line react/no-array-index-key */}
                     {new Array(5).fill("a").map((e, i) => <PageBlockB word={`循环列表 ${i}`} key={`循环列表${e}${i}`} />)}
-                    <PageBlockArticle>{new Array(450).fill("小曹铁路好！！！").map((e, i) => e + (i + 1)).join("")}</PageBlockArticle>
+                    <PageBlockArticle>{text}</PageBlockArticle>
                     <PageBlockA word={1} />
                     <PageBlockB word={2} />
                 </Paper>

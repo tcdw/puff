@@ -5,8 +5,8 @@
 
 * {
     box-sizing: border-box;
-    overflow-wrap: break-word;
-    word-break: break-all;
+    /*overflow-wrap: break-word;*/
+    /*word-break: break-all;*/
 }
 
 body {
