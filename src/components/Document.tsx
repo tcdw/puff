@@ -179,6 +179,8 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
 
                             // 逐步添加文字
                             f.renderAmount += 25;
+                            // 如果不慎超出总元素数量，要以总元素数量为准
+                            f.renderAmount = Math.min(f.renderAmount, f.element.props.children.length);
 
                             // 执行更新
                             update();
