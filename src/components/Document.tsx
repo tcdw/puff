@@ -199,7 +199,11 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
                                 break;
                             }
                         } while (paperActualHeight <= paperHeight);
+
                         if (notOverflowHandledFlag) {
+                            // 将切出来的元素放到下一页
+                            const movedFragments = e.paperItems.splice(j + 1, e.paperItems.length - j);
+                            nextPageFragments.push(...movedFragments);
                             break;
                         }
 
@@ -219,15 +223,19 @@ const Document = forwardRef<DocumentRef, DocumentProps>((props, ref) => {
                         } while (paperActualHeight > paperHeight);
 
                         // 删除多出来的一个元素
-                        f.renderAmount -= 1;
+                        // f.renderAmount -= 1;
 
-                        // 将剩下的元素放到下一页
+                        // 将切出来的元素放到下一页
                         const movedFragment: PuffFragment = {
                             element: cloneElement(f.element, { hideBefore: true, hideAfter: false }, f.element.props.children.slice(f.renderAmount)),
                             key: v4(),
                             renderAmount: 0,
                         };
                         nextPageFragments.push(movedFragment);
+
+                        // 将剩余元素放到下一页
+                        const movedFragments = e.paperItems.splice(j + 1, e.paperItems.length - j);
+                        nextPageFragments.push(...movedFragments);
                         break;
                     }
 
